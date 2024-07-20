@@ -1,9 +1,30 @@
 {
   "name": "fastify",
-  "repository": "https://github.com/vercel/examples.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vercel/examples.git"
+  },
   "license": "MIT",
   "private": true,
   "dependencies": {
     "fastify": "^4.25.2"
-  }
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  },
+  "description": "This example shows how to use Fastify with Vercel Functions.",
+  "bugs": {
+    "url": "https://github.com/vercel/examples/issues"
+  },
+  "homepage": "https://github.com/vercel/examples#readme",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node api/index.ts"
+  },
+  "keywords": [],
+  "author": ""
 }
