@@ -27,7 +27,7 @@ Buat file bernama tsconfig.json yang berisi
 
 atau kamu bisa lihat di dokumentasi typescript sendiri disini
 
-['https://www.typescriptlang.org/docs/handbook/tsconfig-json.html'](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+[https://www.typescriptlang.org/docs/handbook/tsconfig-json.html](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 
 ## Ketiga
 Ubah semua file ts nya menjadi js sebelum kamu run stepnya
@@ -48,7 +48,7 @@ oh iya pastiin juga bagian script pada package.json seperti ini
   },
 ```
 ## Keempat (opsional)
-Pada file index.ts bisa kamu rubah seperti ini
+Pada file index.ts bisa kamu ubah seperti ini
 
 ```typescript
 import Fastify from 'fastify';
@@ -77,7 +77,7 @@ export default async function handler(req: any, reply: any) {
 ```
 
 atau kamu bisa lihat langsung pada dokumentasi fastify sendiri disini
-['https://fastify.dev/'](https://fastify.dev/)
+[https://fastify.dev/](https://fastify.dev/)
 
-Made by ('Radya')[https://radya.fun]
+Made by [Radya](https://radya.fun)
 
