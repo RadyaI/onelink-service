@@ -1,5 +1,5 @@
+import { getUser } from "../controllers/userController";
+
 export default async function (fastify: any, opts: any) {
-    fastify.get('/', (req: any, reply: any) => {
-        reply.send('hai')
-    })
-}
+    fastify.get('/', getUser)
+}   

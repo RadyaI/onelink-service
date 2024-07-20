@@ -7,6 +7,10 @@ const app = Fastify({
 
 app.register(userRoutes, { prefix: '/user' })
 
+app.get('/', (req, reply) => {
+  reply.send({status: 'working'})
+})
+
 const start = async () => {
   try {
     await app.listen({ port: 3000 });
