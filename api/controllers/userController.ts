@@ -1,25 +1,27 @@
 import { getUserByIdService, getUserService, postUserService } from "../service/userService"
 
-function getUser(req: any, reply: any) {
+async function getUser(req: any, reply: any): Promise<void> {
     try {
-        const data: Object[] = getUserService()
-        reply.send({
-            status: true,
-            data
-        })
+
+        const data: any = await getUserService()
+        reply.code(200).send(data)
+
     } catch (error) {
         console.log(error)
         reply.send(error)
     }
 }
 
-function getUserById(req: any, reply: any) {
+async function getUserById(req: any, reply: any): Promise<void> {
     try {
-        const data: Object | undefined = getUserByIdService(parseInt(req.params.id))
-        reply.send({
-            status: true,
-            data
-        })
+
+        const data: Object | undefined = await getUserByIdService(req.params.id)
+        if (!data) {
+            reply.code(404).send({ status: false, msg: 'User Not Found' })
+        } else {
+            reply.code(200).send(data)
+        }
+
     } catch (error) {
         console.log(error)
         reply.send(error)
@@ -27,7 +29,6 @@ function getUserById(req: any, reply: any) {
 }
 
 interface getUserData {
-    id: number,
     nama: string,
     email: string
 }
@@ -38,15 +39,12 @@ interface request {
 
 async function postUser(req: request, reply: any): Promise<void> {
     try {
-        const { id, nama, email } = req.body
+        const { nama, email } = req.body
         const get: getUserData = {
-            id, nama, email
+            nama, email
         }
         const data: object | undefined = await postUserService(get)
-        reply.send({
-            status: true,
-            data
-        }, 201)
+        reply.code(201).send(data)
     } catch (error) {
         console.log(error)
         reply.send(error, 500)

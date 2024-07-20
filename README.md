@@ -80,7 +80,6 @@ export default async function handler(req: any, reply: any) {
 atau kamu bisa lihat langsung pada dokumentasi fastify sendiri disini
 [https://fastify.dev/](https://fastify.dev/)
 
-Made by [Radya](https://radya.fun)
 
 ## Kalo pake vercel
 Ubah file vercel.json menjadi seperti ini 
@@ -101,3 +100,4 @@ Ubah file vercel.json menjadi seperti ini
   ]
 }
 ```
+Made by [Radya](https://radya.fun)

@@ -1,33 +1,67 @@
-interface UserData {
-    id: number,
-    nama: string,
-    email: string,
-}
+import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { db } from '../firebase/firebase'
 
-const userData: UserData[] = [
-    {
-        id: 1,
-        nama: 'Muhammad Radya Iftikhar',
-        email: 'radyaiftikhar@gmail.com'
-    },
-    {
-        id: 2,
-        nama: 'Muhammad Fulan',
-        email: 'fulan@gmail.com'
+async function getUserService(): Promise<Object | undefined> {
+    try {
+
+        interface user {
+            id: string,
+            nama: string,
+            email: string
+        }
+
+        const data: user[] = []
+
+        const get = await getDocs(collection(db, 'user'))
+        get.forEach((userData: any) => {
+            const user: user = userData.data()
+            data.push({ ...user, id: userData.id })
+        })
+
+        const response: Object = {
+            status: true,
+            data
+        }
+
+        return response
+    } catch (error: any) {
+        return error
     }
-]
-
-function getUserService(): Object[] {
-    return userData
 }
 
-function getUserByIdService(id: number): Object | undefined {
-    const findData: UserData | undefined = userData.find(i => i.id === id)
-    return findData
+async function getUserByIdService(id: string): Promise<Object | undefined> {
+    try {
+        const get = await getDoc(doc(db, 'user', id))
+        let response: Object | undefined
+        if (get.data() == undefined) {
+            response = undefined
+        } else {
+            response = {
+                status: true,
+                id: get.id,
+                data: get.data()
+            }
+        }
+        return response
+    } catch (error: any) {
+        return error
+    }
 }
 
 async function postUserService(data: Object): Promise<Object | undefined> {
-    return data
+    try {
+        const post: any = await addDoc(collection(db, 'user'), data)
+        const response: Object | undefined = {
+            status: true,
+            newData: data,
+            result: post
+        }
+
+        return response
+    } catch (error: any) {
+        console.log(error)
+        return error
+    }
 }
 
 export { getUserService, getUserByIdService, postUserService }

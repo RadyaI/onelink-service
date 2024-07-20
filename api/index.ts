@@ -1,4 +1,6 @@
 import Fastify from 'fastify';
+import 'dotenv'
+
 import userRoutes from './routes/userRoutes';
 
 const app = Fastify({
