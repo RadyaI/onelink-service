@@ -81,3 +81,22 @@ atau kamu bisa lihat langsung pada dokumentasi fastify sendiri disini
 
 Made by [Radya](https://radya.fun)
 
+## Kalo pake vercel
+Ubah file vercel.json menjadi seperti ini 
+
+```json
+{
+  "builds": [
+    {
+      "src": "api/**/*.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist/$1"
+    }
+  ]
+}
+```
