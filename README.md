@@ -44,8 +44,9 @@ oh iya pastiin juga bagian script pada package.json seperti ini
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node api/index.ts"
-  },
+    "dev": "ts-node api/index.ts",
+    "vercel-build": "npm run build"
+  }
 ```
 ## Keempat (opsional)
 Pada file index.ts bisa kamu ubah seperti ini
@@ -88,14 +89,14 @@ Ubah file vercel.json menjadi seperti ini
 {
   "builds": [
     {
-      "src": "api/**/*.ts",
+      "src": "api/index.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/dist/$1"
+      "dest": "/api/index.ts"
     }
   ]
 }
