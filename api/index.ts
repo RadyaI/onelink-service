@@ -1,17 +1,21 @@
 import Fastify from 'fastify';
-import 'dotenv'
+import env from 'dotenv'
 
 import userRoutes from './routes/userRoutes';
+import auth from './routes/auth';
 
 const app = Fastify({
   logger: true,
 });
 
+env.config()
+
+app.register(auth, { prefix: '/auth' })
 app.register(userRoutes, { prefix: '/user' })
 
 app.get('/', (req, reply) => {
-  reply.send({status: 'working'})
-}) 
+  reply.send({ status: 'working' })
+})
 
 const start = async () => {
   try {

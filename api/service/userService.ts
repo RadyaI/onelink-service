@@ -1,5 +1,47 @@
 import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
-import { db } from '../firebase/firebase'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { db, auth } from '../firebase/firebase'
+
+interface LoginData {
+    email: string,
+    password: string
+}
+
+async function registerUser(data: LoginData): Promise<Object | any> {
+    try {
+        const register = await createUserWithEmailAndPassword(auth, data.email, data.password)
+        return register
+    } catch (error: any) {
+        return {
+            code: error.code,
+            msg: error.message
+        }
+    }
+}
+
+async function loginUser(data: LoginData): Promise<Object | any> {
+    try {
+        const login = await signInWithEmailAndPassword(auth, data.email, data.password)
+        return login
+    } catch (error: any) {
+        return {
+            code: error.code,
+            msg: error.message
+        }
+    }
+}
+
+async function logoutUser(): Promise<Object | any> {
+    try {
+        await signOut(auth)
+        return { msg: "Logout successfully" }
+    } catch (error: any) {
+        return {
+            code: error.code,
+            msg: error.message
+        }
+    }
+}
 
 async function getUserService(): Promise<Object | undefined> {
     try {
@@ -64,4 +106,4 @@ async function postUserService(data: Object): Promise<Object | undefined> {
     }
 }
 
-export { getUserService, getUserByIdService, postUserService }
+export { getUserService, getUserByIdService, postUserService, registerUser, loginUser, logoutUser }
