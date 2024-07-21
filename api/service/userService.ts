@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { db, auth } from '../firebase/firebase'
 
@@ -53,12 +53,16 @@ async function getUserService(): Promise<Object | undefined> {
         }
 
         const data: user[] = []
+        const getUserLogin: any = auth.currentUser
+        const uid: any = getUserLogin.uid
 
-        const get = await getDocs(collection(db, 'user'))
-        get.forEach((userData: any) => {
-            const user: user = userData.data()
-            data.push({ ...user, id: userData.id })
-        })
+        if (getUserLogin) {
+            const get = await getDocs(query(collection(db, 'user'), where('author_uid', '==', uid)))
+            get.forEach((userData: any) => {
+                const user: user = userData.data()
+                data.push({ ...user, id: userData.id })
+            })
+        }
 
         const response: Object = {
             status: true,
@@ -92,7 +96,17 @@ async function getUserByIdService(id: string): Promise<Object | undefined> {
 
 async function postUserService(data: Object): Promise<Object | undefined> {
     try {
-        const post: any = await addDoc(collection(db, 'user'), data)
+        let post: any
+
+        const getLoginUser: any = auth.currentUser
+        const uid: any = getLoginUser.uid
+
+        
+
+        if (getLoginUser) {
+            post = await addDoc(collection(db, 'user'), { ...data, author_uid: uid })
+
+        }
         const response: Object | undefined = {
             status: true,
             newData: data,
