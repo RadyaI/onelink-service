@@ -101,8 +101,6 @@ async function postUserService(data: Object): Promise<Object | undefined> {
         const getLoginUser: any = auth.currentUser
         const uid: any = getLoginUser.uid
 
-        
-
         if (getLoginUser) {
             post = await addDoc(collection(db, 'user'), { ...data, author_uid: uid })
 
